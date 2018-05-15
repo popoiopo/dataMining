@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://www.dataquest.io/blog/kaggle-tutorial/ -->
+<html class="wf-ubuntu-n7-active wf-active fontawesome-i2svg-active fontawesome-i2svg-complete gr__dataquest_io"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Using Python to place in the top 15 of the Kaggle Expedia competition</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">svg:not(:root).svg-inline--fa{overflow:visible}.svg-inline--fa{display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em}.svg-inline--fa.fa-lg{vertical-align:-.225em}.svg-inline--fa.fa-w-1{width:.0625em}.svg-inline--fa.fa-w-2{width:.125em}.svg-inline--fa.fa-w-3{width:.1875em}.svg-inline--fa.fa-w-4{width:.25em}.svg-inline--fa.fa-w-5{width:.3125em}.svg-inline--fa.fa-w-6{width:.375em}.svg-inline--fa.fa-w-7{width:.4375em}.svg-inline--fa.fa-w-8{width:.5em}.svg-inline--fa.fa-w-9{width:.5625em}.svg-inline--fa.fa-w-10{width:.625em}.svg-inline--fa.fa-w-11{width:.6875em}.svg-inline--fa.fa-w-12{width:.75em}.svg-inline--fa.fa-w-13{width:.8125em}.svg-inline--fa.fa-w-14{width:.875em}.svg-inline--fa.fa-w-15{width:.9375em}.svg-inline--fa.fa-w-16{width:1em}.svg-inline--fa.fa-w-17{width:1.0625em}.svg-inline--fa.fa-w-18{width:1.125em}.svg-inline--fa.fa-w-19{width:1.1875em}.svg-inline--fa.fa-w-20{width:1.25em}.svg-inline--fa.fa-pull-left{margin-right:.3em;width:auto}.svg-inline--fa.fa-pull-right{margin-left:.3em;width:auto}.svg-inline--fa.fa-border{height:1.5em}.svg-inline--fa.fa-li{width:2em}.svg-inline--fa.fa-fw{width:1.25em}.fa-layers svg.svg-inline--fa{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.fa-layers{display:inline-block;height:1em;position:relative;text-align:center;vertical-align:-.125em;width:1em}.fa-layers svg.svg-inline--fa{-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter,.fa-layers-text{display:inline-block;position:absolute;text-align:center}.fa-layers-text{left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter{background-color:#ff253a;border-radius:1em;color:#fff;height:1.5em;line-height:1;max-width:5em;min-width:1.5em;overflow:hidden;padding:.25em;right:0;text-overflow:ellipsis;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-bottom-right{bottom:0;right:0;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom right;transform-origin:bottom right}.fa-layers-bottom-left{bottom:0;left:0;right:auto;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom left;transform-origin:bottom left}.fa-layers-top-right{right:0;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-top-left{left:0;right:auto;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top left;transform-origin:top left}.fa-lg{font-size:1.33333em;line-height:.75em;vertical-align:-.0667em}.fa-xs{font-size:.75em}.fa-sm{font-size:.875em}.fa-1x{font-size:1em}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-6x{font-size:6em}.fa-7x{font-size:7em}.fa-8x{font-size:8em}.fa-9x{font-size:9em}.fa-10x{font-size:10em}.fa-fw{text-align:center;width:1.25em}.fa-ul{list-style-type:none;margin-left:2.5em;padding-left:0}.fa-ul>li{position:relative}.fa-li{left:-2em;position:absolute;text-align:center;width:2em;line-height:inherit}.fa-border{border:solid .08em #eee;border-radius:.1em;padding:.2em .25em .15em}.fa-pull-left{float:left}.fa-pull-right{float:right}.fa.fa-pull-left,.fab.fa-pull-left,.fal.fa-pull-left,.far.fa-pull-left,.fas.fa-pull-left{margin-right:.3em}.fa.fa-pull-right,.fab.fa-pull-right,.fal.fa-pull-right,.far.fa-pull-right,.fas.fa-pull-right{margin-left:.3em}.fa-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}.fa-pulse{-webkit-animation:fa-spin 1s infinite steps(8);animation:fa-spin 1s infinite steps(8)}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.fa-rotate-90{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{-webkit-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{-webkit-transform:scale(-1,1);transform:scale(-1,1)}.fa-flip-vertical{-webkit-transform:scale(1,-1);transform:scale(1,-1)}.fa-flip-horizontal.fa-flip-vertical{-webkit-transform:scale(-1,-1);transform:scale(-1,-1)}:root .fa-flip-horizontal,:root .fa-flip-vertical,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-rotate-90{-webkit-filter:none;filter:none}.fa-stack{display:inline-block;height:2em;position:relative;width:2em}.fa-stack-1x,.fa-stack-2x{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.svg-inline--fa.fa-stack-1x{height:1em;width:1em}.svg-inline--fa.fa-stack-2x{height:2em;width:2em}.fa-inverse{color:#fff}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.sr-only-focusable:active,.sr-only-focusable:focus{clip:auto;height:auto;margin:0;overflow:visible;position:static;width:auto}</style><link href="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/prism.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/screen.css">
+    <link rel="stylesheet" type="text/css" href="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/custom.css">
+
+    <meta name="description" content="Learn how to place in the top 15 of the Kaggle Expedia competition using Python, pandas, scikit-learn and more.">
+    <link rel="shortcut icon" href="https://www.dataquest.io/blog/favicon.png" type="image/png">
+    <link rel="canonical" href="https://www.dataquest.io/blog/kaggle-tutorial/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="Dataquest">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Place in the top 15 of Kaggle&#39;s Expedia competition">
+    <meta property="og:description" content="Learn how to place in the top 15 of the Kaggle Expedia competition using Python, pandas, scikit-learn and more.">
+    <meta property="og:url" content="https://www.dataquest.io/blog/kaggle-tutorial/">
+    <meta property="article:published_time" content="2016-05-03T00:00:00.000Z">
+    <meta property="article:modified_time" content="2017-12-15T01:27:26.000Z">
+    <meta property="article:tag" content="Kaggle">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Data Science">
+    <meta property="article:tag" content="Pandas">
+    <meta property="article:tag" content="Scikit-Learn">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/dataquestio/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Place in the top 15 of Kaggle&#39;s Expedia competition">
+    <meta name="twitter:description" content="Learn how to place in the top 15 using #Python, #pandas, scikit-learn and more.">
+    <meta name="twitter:url" content="https://www.dataquest.io/blog/kaggle-tutorial/">
+    <meta name="twitter:image" content="https://www.dataquest.io/blog/content/images/2017/12/top_15_kaggle.jpg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Vik Paruchuri">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Kaggle, Python, Data Science, Pandas, Scikit-Learn">
+    <meta name="twitter:site" content="@dataquestio">
+    
+    <script src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/identity.js.download" async=""></script><script src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/1208964489120563" async=""></script><script type="text/javascript" async="" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/fbevents.js.download"></script><script type="text/javascript" async="" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/analytics.js.download"></script><script type="text/javascript" async="" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/qevents.js.download"></script><script type="text/javascript" async="" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/analytics.min.js.download"></script><script src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/webfont.js.download" type="text/javascript" async=""></script><script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Dataquest",
+        "logo": "https://www.dataquest.io/blog/content/images/2017/12/Logo-On-Dark--2-.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Vik Paruchuri",
+        "url": "https://www.dataquest.io/blog/author/vik/",
+        "sameAs": []
+    },
+    "headline": "Using Python to place in the top 15 of the Kaggle Expedia competition",
+    "url": "https://www.dataquest.io/blog/kaggle-tutorial/",
+    "datePublished": "2016-05-03T00:00:00.000Z",
+    "dateModified": "2017-12-15T01:27:26.000Z",
+    "keywords": "Kaggle, Python, Data Science, Pandas, Scikit-Learn",
+    "description": "Learn how to place in the top 15 of the Kaggle Expedia competition using Python, pandas, scikit-learn and more.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.dataquest.io/blog/"
+    }
+}
+    </script>
+
+    <script src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/ghost-sdk.min.js.download"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "2e84fde6d9c4"
+});
+</script>
+    <meta name="generator" content="Ghost 1.22">
+    <link rel="alternate" type="application/rss+xml" title="Dataquest" href="https://www.dataquest.io/blog/rss/">
+    <meta property="fb:pages" content="937097596357357"><link rel="stylesheet" href="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/css" media="all">
+
+<style type="text/css">#boxzilla-overlay{position:fixed;background:rgba(0,0,0,.65);width:100%;height:100%;left:0;top:0;z-index:99999}.boxzilla-center-container{position:fixed;top:0;left:0;right:0;height:0;text-align:center;z-index:999999;line-height:0}.boxzilla-center-container .boxzilla{display:inline-block;text-align:left;position:relative;line-height:normal}.boxzilla{position:fixed;z-index:999999;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;background:#fff;padding:25px}.boxzilla.boxzilla-top-left{top:0;left:0}.boxzilla.boxzilla-top-right{top:0;right:0}.boxzilla.boxzilla-bottom-left{bottom:0;left:0}.boxzilla.boxzilla-bottom-right{bottom:0;right:0}.boxzilla-content>:first-child{margin-top:0;padding-top:0}.boxzilla-content>:last-child{margin-bottom:0;padding-bottom:0}.boxzilla-close-icon{position:absolute;right:0;top:0;text-align:center;padding:6px;cursor:pointer;-webkit-appearance:none;font-size:28px;font-weight:700;line-height:20px;color:#000;opacity:.5}.boxzilla-close-icon:focus,.boxzilla-close-icon:hover{opacity:.8}</style><style id="fit-vids-style">.fluid-width-video-container{flex-grow: 1;width:100%;}.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="post-template tag-kaggle tag-python tag-data-science tag-pandas tag-scikit-learn" data-gr-c-s-loaded="true" cz-shortcut-listen="true"><div id="MathJax_Message" style="display: none;"></div>
+
+    <div class="site-wrapper">
+
+        
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+                <a class="site-nav-logo" href="https://www.dataquest.io/blog"><img src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/Logo-On-Dark--2-.png" alt="Dataquest"></a>
+            <ul class="nav" role="menu">
+    <li class="nav-blog" role="menuitem"><a href="https://www.dataquest.io/blog/">Blog</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+                <a class="social-link social-link-fb" href="https://www.facebook.com/dataquestio/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"></path></svg>
+</a>
+                <a class="social-link social-link-tw" href="https://twitter.com/dataquestio" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"></path></svg>
+</a>
+        </div>
+            <a class="rss-button" href="http://cloud.feedly.com/#subscription/feed/https://www.dataquest.io/blog/rss/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"></circle><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"></path></svg>
+</a>
+    </div>
+</nav>
+        <div class="header-search-wrapper">
+            <form>
+                <input class="header-search-input" id="searchField" autocomplete="off">
+                <button class="header-search-submit" type="submit"><svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg><!-- <i class="fas fa-search"></i> --></button>
+                <div style="clear:both"></div>
+            </form>
+            <div class="header-search-results-wrapper empty">
+                <div class="search-no-results">No results.</div>
+                <div id="dropdownResults" class="header-search-results">
+                </div>
+                <a href="https://www.dataquest.io/search" class="header-view-all">View All</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-kaggle tag-python tag-data-science tag-pandas tag-scikit-learn no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="2016-05-03">3 May 2016</time>
+                        <span class="date-divider">/</span> <a href="https://www.dataquest.io/blog/tag/kaggle/">Kaggle</a>
+                </section>
+                <h1 class="post-full-title">How to get into the top 15 of a Kaggle competition using Python</h1>
+            </header>
+
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown"><p>Kaggle competitions are a fantastic way to learn data science and build your portfolio.  I personally used Kaggle to learn many data science concepts.  I started out with Kaggle a few months after learning programming, and later won several competitions.</p>
+<p>Doing well in a Kaggle competition requires more than just knowing machine learning algorithms.  It requires the right mindset, the willingness to learn, and a lot of data exploration.  Many of these aspects aren't typically emphasized in tutorials on getting started with Kaggle, though.  In this post, I'll cover how to get started with the <a href="https://www.kaggle.com/c/expedia-hotel-recommendations">Kaggle Expedia hotel recommendations competition</a>, including establishing the right mindset, setting up testing infrastructure, exploring the data, creating features, and making predictions.</p>
+<p>At the end, we'll generate a submission file using the techniques in the this post.  As of this writing, the submission would rank in the top <code>15</code>.</p>
+<p><img src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/leaderboard_place.png" alt="leaderboard_place"></p>
+<p class="small text-center">Where this submission would rank as of this writing.</p>
+<h2 id="theexpediakagglecompetition">The Expedia Kaggle competition</h2>
+<p>The Expedia competition challenges you with predicting what hotel a user will book based on some attributes about the search the user is conducting on Expedia.  Before we dive into any coding, we'll need to put in time to understand both the problem and the data.</p>
+<h3 id="aquickglanceatthecolumns">A quick glance at the columns</h3>
+<p>The first step is to look at the description of the columns of the dataset.  You can find that <a href="https://www.kaggle.com/c/expedia-hotel-recommendations/data">here</a>.  Towards the bottom of the page, you'll see a description of each column in the data.  Looking over this, it appears that we have quite a bit of data about the searches users are conducting on Expedia, along with data on what hotel cluster they eventually booked in <code>test.csv</code> and <code>train.csv</code>.  <code>destinations.csv</code> contains information about the regions users search in for hotels.  We won't worry about what we're predicting just yet, we'll focus on understanding the columns.</p>
+<h3 id="expedia">Expedia</h3>
+<p>Since the competition consists of event data from users booking hotels on Expedia, we'll need to spend some time understanding the Expedia site.  Looking at the booking flow will help us contextualize the fields in the data, and how they tie into using Expedia.</p>
+<p><img src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/expedia_main.png" alt="expedia_main"></p>
+<p class="small text-center">The page you initially see when booking a hotel.</p>
+<p>The box labelled <code>Going To</code> maps to the <code>srch_destination_type_id</code>, <code>hotel_continent</code>, <code>hotel_country</code>, and <code>hotel_market</code> fields in the data.</p>
+<p>The box labelled <code>Check-in</code> maps to the <code>srch_ci</code> field in the data, and the box labelled <code>Check out</code> maps to the <code>srch_co</code> field in the data.</p>
+<p>The box labelled <code>Guests</code> maps to the <code>srch_adults_cnt</code>, <code>srch_children_cnt</code>, and <code>srch_rm_cnt</code> fields in the data.</p>
+<p>The box labelled <code>Add a Flight</code> maps to the <code>is_package</code> field in the data.</p>
+<p><code>site_name</code> is the name of the site you visited, whether it be the main <code>Expedia.com</code> site, or another.</p>
+<p><code>user_location_country</code>, <code>user_location_region</code>, <code>user_location_city</code>, <code>is_mobile</code>, <code>channel</code> <code>is_booking</code>, and <code>cnt</code> are all attributes that are determined by where the user it, what their device is, or their session on the Expedia site.</p>
+<p>Just by looking at one screen, we can immediately contextualize all the variables.  Playing around with the screen, filling in values, and going through the booking process can help further contextualize.</p>
+<h2 id="exploringthekaggledatainpython">Exploring the Kaggle data in Python</h2>
+<p>Now that we have a handle on the data at a high level, we can do some exploration to take a deeper look.</p>
+<h3 id="downloadingthedata">Downloading the data</h3>
+<p>You can download the data <a href="https://www.kaggle.com/c/expedia-hotel-recommendations/data">here</a>.  The datasets are fairly large, so you'll need a good amount of disk space.  You'll need to unzip the files to get raw <code>.csv</code> files instead of <code>.csv.gz</code>.</p>
+<h3 id="exploringthedatawithpandas">Exploring the data with Pandas</h3>
+<p>Given the amount of memory on your system, it may or may not be feasible to read all the data in.  If it isn't, you should consider creating a machine on EC2 or DigitalOcean to process the data with.  <a href="https://www.dataquest.io/blog/data-science-ec2-quickstart/">Here's</a> a tutorial on how to get started with that.</p>
+<p>Once we download the data, we can read it in using <a href="http://pandas.pydata.org/">Pandas</a>:</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+destinations <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"destinations.csv"</span><span class="token punctuation">)</span>
+test <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"test.csv"</span><span class="token punctuation">)</span>
+train <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"train.csv"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Let's first look at how much data there is:</p>
+<pre class=" language-python"><code class=" language-python">train<span class="token punctuation">.</span>shape
+</code></pre>
+<pre><code>(37670293, 24)
+</code></pre>
+<pre class=" language-python"><code class=" language-python">test<span class="token punctuation">.</span>shape
+</code></pre>
+<pre><code>(2528243, 22)
+</code></pre>
+<p>We have about <code>37</code> million training set rows, and <code>2</code> million testing set rows, which will make this problem a bit challenging to work with.</p>
+<p>We can explore the first few rows of the data:</p>
+<pre class=" language-python"><code class=" language-python">train<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+</code></pre>
+<div class="dataframe">
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date_time</th>
+      <th>site_name</th>
+      <th>posa_continent</th>
+      <th>user_location_country</th>
+      <th>user_location_region</th>
+      <th>user_location_city</th>
+      <th>orig_destination_distance</th>
+      <th>user_id</th>
+      <th>is_mobile</th>
+      <th>is_package</th>
+      <th>...</th>
+      <th>srch_children_cnt</th>
+      <th>srch_rm_cnt</th>
+      <th>srch_destination_id</th>
+      <th>srch_destination_type_id</th>
+      <th>is_booking</th>
+      <th>cnt</th>
+      <th>hotel_continent</th>
+      <th>hotel_country</th>
+      <th>hotel_market</th>
+      <th>hotel_cluster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2014-08-11 07:46:59</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>348</td>
+      <td>48862</td>
+      <td>2234.2641</td>
+      <td>12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>8250</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+      <td>50</td>
+      <td>628</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2014-08-11 08:22:12</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>348</td>
+      <td>48862</td>
+      <td>2234.2641</td>
+      <td>12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>8250</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>50</td>
+      <td>628</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2014-08-11 08:24:33</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>348</td>
+      <td>48862</td>
+      <td>2234.2641</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>8250</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>50</td>
+      <td>628</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2014-08-09 18:05:16</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>442</td>
+      <td>35390</td>
+      <td>913.1932</td>
+      <td>93</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>14984</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>50</td>
+      <td>1457</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2014-08-09 18:08:18</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>442</td>
+      <td>35390</td>
+      <td>913.6259</td>
+      <td>93</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>14984</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>50</td>
+      <td>1457</td>
+      <td>21</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+There are a few things that immediately stick out:
+<ul>
+<li><code>date_time</code> could be useful in our predictions, so we'll need to convert it.</li>
+<li>Most of the columns are integers or floats, so we can't do a lot of feature engineering.  For example, <code>user_location_country</code> isn't the name of a country, it's an integer.  This makes it harder to create new features, because we don't know exactly which each value means.</li>
+</ul>
+<pre class=" language-python"><code class=" language-python">test<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+</code></pre>
+<div class="dataframe">
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>date_time</th>
+      <th>site_name</th>
+      <th>posa_continent</th>
+      <th>user_location_country</th>
+      <th>user_location_region</th>
+      <th>user_location_city</th>
+      <th>orig_destination_distance</th>
+      <th>user_id</th>
+      <th>is_mobile</th>
+      <th>...</th>
+      <th>srch_ci</th>
+      <th>srch_co</th>
+      <th>srch_adults_cnt</th>
+      <th>srch_children_cnt</th>
+      <th>srch_rm_cnt</th>
+      <th>srch_destination_id</th>
+      <th>srch_destination_type_id</th>
+      <th>hotel_continent</th>
+      <th>hotel_country</th>
+      <th>hotel_market</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>2015-09-03 17:09:54</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>174</td>
+      <td>37449</td>
+      <td>5539.0567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>2016-05-19</td>
+      <td>2016-05-23</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>12243</td>
+      <td>6</td>
+      <td>6</td>
+      <td>204</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2015-09-24 17:38:35</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>174</td>
+      <td>37449</td>
+      <td>5873.2923</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>2016-05-12</td>
+      <td>2016-05-15</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>14474</td>
+      <td>7</td>
+      <td>6</td>
+      <td>204</td>
+      <td>1540</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>2015-06-07 15:53:02</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>142</td>
+      <td>17440</td>
+      <td>3975.9776</td>
+      <td>20</td>
+      <td>0</td>
+      <td>...</td>
+      <td>2015-07-26</td>
+      <td>2015-07-27</td>
+      <td>4</td>
+      <td>0</td>
+      <td>1</td>
+      <td>11353</td>
+      <td>1</td>
+      <td>2</td>
+      <td>50</td>
+      <td>699</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>2015-09-14 14:49:10</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>258</td>
+      <td>34156</td>
+      <td>1508.5975</td>
+      <td>28</td>
+      <td>0</td>
+      <td>...</td>
+      <td>2015-09-14</td>
+      <td>2015-09-16</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>8250</td>
+      <td>1</td>
+      <td>2</td>
+      <td>50</td>
+      <td>628</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2015-07-17 09:32:04</td>
+      <td>2</td>
+      <td>3</td>
+      <td>66</td>
+      <td>467</td>
+      <td>36345</td>
+      <td>66.7913</td>
+      <td>50</td>
+      <td>0</td>
+      <td>...</td>
+      <td>2015-07-22</td>
+      <td>2015-07-23</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>11812</td>
+      <td>1</td>
+      <td>2</td>
+      <td>50</td>
+      <td>538</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>There are a few things we can take away from looking at <code>test.csv</code>:</p>
+<ul>
+<li>It looks like all the dates in <code>test.csv</code> are later than the dates in <code>train.csv</code>, and the <a href="https://www.kaggle.com/c/expedia-hotel-recommendations/data">data page</a> confirms this.  The testing set contains dates from <code>2015</code>, and the training set contains dates from <code>2013</code> and <code>2014</code>.</li>
+<li>It looks like the user ids in <code>test.csv</code> are a subset of the user ids in <code>train.csv</code>, given the overlapping integer ranges.  We can confirm this later on.</li>
+<li>The <code>is_booking</code> column always looks to be <code>1</code> in <code>test.csv</code>.  The <a href="https://www.kaggle.com/c/expedia-hotel-recommendations/data">data page</a> confirms this.</li>
+</ul>
+<h2 id="figuringoutwhattopredict">Figuring out what to predict</h2>
+<h3 id="whatwerepredicting">What we're predicting</h3>
+<p>We'll be predicting which <code>hotel_cluster</code> a user will book after a given search.  According to the <a href="https://www.kaggle.com/c/expedia-hotel-recommendations">description</a>, there are <code>100</code> clusters in total.</p>
+<h3 id="howwellbescored">How we'll be scored</h3>
+<p>The <a href="https://www.kaggle.com/c/expedia-hotel-recommendations#evaluation">evaluation page</a> says that we'll be scored using <a href="https://www.kaggle.com/c/FacebookRecruiting/forums/t/2002/alternate-explanation-of-mean-average-precision">Mean Average Precision</a> @ 5, which means that we'll need to make <code>5</code> cluster predictions for each row, and will be scored on whether or not the correct prediction appears in our list.  If the correct prediction comes earlier in the list, we get more points.</p>
+<p>For example, if the "correct" cluster is <code>3</code>, and we predict <code>4, 43, 60, 3, 20</code>, our score will be lower than if we predict <code>3, 4, 43, 60, 20</code>.  We should put predictions we're more certain about earlier in our list of predictions.</p>
+<h3 id="exploringhotelclusters">Exploring hotel clusters</h3>
+<p>Now that we know what we're predicting, it's time to dive in and explore <code>hotel_cluster</code>.  We can use the <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.value_counts.html">value_counts</a> method on Series to do this:</p>
+<pre class=" language-python"><code class=" language-python">train<span class="token punctuation">[</span><span class="token string">"hotel_cluster"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>value_counts<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<pre><code>91    1043720
+41     772743
+48     754033
+64     704734
+65     670960
+5      620194
+       ...
+53     134812
+88     107784
+27     105040
+74      48355
+</code></pre>
+<p>The output above is truncated, but it shows that the number of hotels in each cluster is fairly evenly distributed.  There doesn't appear to be any relationship between cluster number and the number of items.</p>
+<h3 id="exploringtrainandtestuserids">Exploring train and test user ids</h3>
+<p>Finally, we'll confirm our hypothesis that all the <code>test</code> user ids are found in the <code>train</code> DataFrame.  We can do this by finding the unique values for <code>user_id</code> in <code>test</code>, and seeing if they all exist in <code>train</code>.</p>
+<p>In the code below, we'll:</p>
+<ul>
+<li>Create a set of all the unique <code>test</code> user ids.</li>
+<li>Create a set of all the unique <code>train</code> user ids.</li>
+<li>Figure out how many <code>test</code> user ids are in the <code>train</code> user ids.</li>
+<li>See if the count matches the total number of <code>test</code> user ids.</li>
+</ul>
+<pre class=" language-python"><code class=" language-python">test_ids <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span>test<span class="token punctuation">.</span>user_id<span class="token punctuation">.</span>unique<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+train_ids <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span>train<span class="token punctuation">.</span>user_id<span class="token punctuation">.</span>unique<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+intersection_count <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_ids <span class="token operator">&amp;</span> train_ids<span class="token punctuation">)</span>
+intersection_count <span class="token operator">==</span> <span class="token builtin">len</span><span class="token punctuation">(</span>test_ids<span class="token punctuation">)</span>
+</code></pre>
+<pre><code>True
+</code></pre>
+<p>Looks like our hypothesis is correct, which will make working with this data much easier!</p>
+<h2 id="downsamplingourkaggledata">Downsampling our Kaggle data</h2>
+<p>The entire <code>train.csv</code> dataset contains <code>37</code> million rows, which makes it hard to experiment with different techniques.  Ideally, we want a small enough dataset that lets us quickly iterate through different approaches but is still representative of the whole training data.</p>
+<p>We can do this by first randomly sampling rows from our data, then selecting new training and testing datasets from <code>train.csv</code>.  By selecting both sets from <code>train.csv</code>, we'll have the true <code>hotel_cluster</code> label for every row, and we'll be able to calculate our accuracy as we test techniques.</p>
+<h3 id="addintimesanddates">Add in times and dates</h3>
+<p>The first step is to add <code>month</code> and <code>year</code> fields to <code>train</code>.  Because the <code>train</code> and <code>test</code> data is differentiated by date, we'll need to add date fields to allow us to segment our data into two sets the same way.  If we add <code>year</code> and <code>month</code> fields, we can split our data into training and testing sets using them.</p>
+<p>The code below will:</p>
+<ul>
+<li>Convert the <code>date_time</code> column in <code>train</code> from an <code>object</code> to a <code>datetime</code> value.  This makes it easier to work with as a date.</li>
+<li>Extract the <code>year</code> and <code>month</code> from from <code>date_time</code>, and assign them to their own columns.</li>
+</ul>
+<pre class=" language-python"><code class=" language-python">train<span class="token punctuation">[</span><span class="token string">"date_time"</span><span class="token punctuation">]</span> <span class="token operator">=</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span>train<span class="token punctuation">[</span><span class="token string">"date_time"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+train<span class="token punctuation">[</span><span class="token string">"year"</span><span class="token punctuation">]</span> <span class="token operator">=</span> train<span class="token punctuation">[</span><span class="token string">"date_time"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">.</span>year
+train<span class="token punctuation">[</span><span class="token string">"month"</span><span class="token punctuation">]</span> <span class="token operator">=</span> train<span class="token punctuation">[</span><span class="token string">"date_time"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">.</span>month
+</code></pre>
+<h3 id="pick10000users">Pick 10000 users</h3>
+<p>Because the user ids in <code>test</code> are a subset of the user ids in <code>train</code>, we'll need to do our random sampling in a way that preserves the full data of each user.  We can accomplish this by selecting a certain number of users randomly, then only picking rows from <code>train</code> where <code>user_id</code> is in our random sample of user ids.</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">import</span> random
+
+unique_users <span class="token operator">=</span> train<span class="token punctuation">.</span>user_id<span class="token punctuation">.</span>unique<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+sel_user_id <span class="token operator">=</span> random<span class="token punctuation">.</span>sample<span class="token punctuation">(</span>unique_user_id<span class="token punctuation">,</span><span class="token number">10000</span><span class="token punctuation">)</span>
+sel_train <span class="token operator">=</span> train<span class="token punctuation">[</span>train<span class="token punctuation">.</span>user_id<span class="token punctuation">.</span>isin<span class="token punctuation">(</span>sel_user_ids<span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>The above code creates a DataFrame called <code>sel_train</code> that only contains data from <code>10000</code> users.</p>
+<h3 id="picknewtrainingandtestingsets">Pick new training and testing sets</h3>
+<p>We'll now need to pick new training and testing sets from <code>sel_train</code>.  We'll call these sets <code>t1</code> and <code>t2</code>.</p>
+<pre class=" language-python"><code class=" language-python">t1 <span class="token operator">=</span> sel_train<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token punctuation">(</span>sel_train<span class="token punctuation">.</span>year <span class="token operator">==</span> <span class="token number">2013</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>sel_train<span class="token punctuation">.</span>year <span class="token operator">==</span> <span class="token number">2014</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token punctuation">(</span>sel_train<span class="token punctuation">.</span>month <span class="token operator">&lt;</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+t2 <span class="token operator">=</span> sel_train<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token punctuation">(</span>sel_train<span class="token punctuation">.</span>year <span class="token operator">==</span> <span class="token number">2014</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token punctuation">(</span>sel_train<span class="token punctuation">.</span>month <span class="token operator">&gt;=</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>In the original <code>train</code> and <code>test</code> DataFrames, <code>test</code> contained data from <code>2015</code>, and <code>train</code> contained data from <code>2013</code> and <code>2014</code>.  We split this data so that anything after <code>July 2014</code> is in <code>t2</code>, and anything before is in <code>t1</code>.  This gives us smaller training and testing sets with similar characteristics to <code>train</code> and <code>test</code>.</p>
+<h3 id="removeclickevents">Remove click events</h3>
+<p>If <code>is_booking</code> is <code>0</code>, it represents a click, and a <code>1</code> represents a booking.  <code>test</code> contains only booking events, so we'll need to sample <code>t2</code> to only contain bookings as well.</p>
+<pre class=" language-python"><code class=" language-python">t2 <span class="token operator">=</span> t2<span class="token punctuation">[</span>t2<span class="token punctuation">.</span>is_booking <span class="token operator">==</span> <span class="token boolean">True</span><span class="token punctuation">]</span>
+</code></pre>
+<h2 id="asimplealgorithm">A simple algorithm</h2>
+<p>The most simple technique we could try on this data is to find the most common clusters across the data, then use them as predictions.</p>
+<p>We can again use the value_counts method to help us here:</p>
+<pre class=" language-python"><code class=" language-python">most_common_clusters <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>train<span class="token punctuation">.</span>hotel_cluster<span class="token punctuation">.</span>value_counts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>index<span class="token punctuation">)</span>
+</code></pre>
+<p>The above code will give us a list of the <code>5</code> most common clusters in <code>train</code>.  This is because the <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.head.html">head</a> method returns the first <code>5</code> rows by default, and the <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Index.html">index</a> property will return the index of the DataFrame, which is the hotel cluster after running the <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.value_counts.html">value_counts</a> method.</p>
+<h3 id="generatingpredictions">Generating predictions</h3>
+<p>We can turn <code>most_common_clusters</code> into a list of predictions by making the same prediction for each row.</p>
+<pre class=" language-python"><code class=" language-python">predictions <span class="token operator">=</span> <span class="token punctuation">[</span>most_common_clusters <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>t2<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>This will create a list with as many elements as there are rows in <code>t2</code>.  Each element will be equal to <code>most_common_clusters</code>.</p>
+<h3 id="evaluatingerror">Evaluating error</h3>
+<p>In order to evaluate error, we'll first need to figure out how to compute Mean Average Precision.  Luckily, <a href="https://github.com/benhamner">Ben Hamner</a> has written an implementation that can be found <a href="https://github.com/benhamner/Metrics/blob/master/Python/ml_metrics/average_precision.py">here</a>.  It can be installed as part of the <code>ml_metrics</code> package, and you can find installation instructions for how to install it <a href="https://github.com/benhamner/Metrics/tree/master/Python">here</a>.</p>
+<p>We can compute our error metric with the <code>mapk</code> method in <code>ml_metrics</code>:</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">import</span> ml_metrics <span class="token keyword">as</span> metrics
+target <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token keyword">for</span> l <span class="token keyword">in</span> t2<span class="token punctuation">[</span><span class="token string">"hotel_cluster"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+metrics<span class="token punctuation">.</span>mapk<span class="token punctuation">(</span>target<span class="token punctuation">,</span> predictions<span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+</code></pre>
+<pre><code>0.058020770920711007
+</code></pre>
+<p>Our target needs to be in list of lists format for <code>mapk</code> to work, so we convert the <code>hotel_cluster</code> column of <code>t2</code> into a list of lists.  Then, we call the <code>mapk</code> method with our target, our predictions, and the number of predictions we want to evaluate (<code>5</code>).</p>
+<p>Our result here isn't great, but we've just generated our first set of predictions, and evaluated our error!  The framework we've built will allow us to quickly test out a variety of techniques and see how they score.  We're well on our way to building a good-performing solution for the leaderboard.</p>
+<h3 id="findingcorrelations">Finding correlations</h3>
+<p>Before we move on to creating a better algorithm, let's see if anything correlates well with <code>hotel_cluster</code>.  This will tell us if we should dive more into any particular columns.</p>
+<p>We can find linear correlations in the training set using the <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.corr.html">corr</a> method:</p>
+<pre class=" language-python"><code class=" language-python">train<span class="token punctuation">.</span>corr<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">"hotel_cluster"</span><span class="token punctuation">]</span>
+</code></pre>
+<pre><code>site_name                   -0.022408
+posa_continent               0.014938
+user_location_country       -0.010477
+user_location_region         0.007453
+user_location_city           0.000831
+orig_destination_distance    0.007260
+user_id                      0.001052
+is_mobile                    0.008412
+is_package                   0.038733
+channel                      0.000707
+</code></pre>
+<p>This tells us that no columns correlate linearly with <code>hotel_cluster</code>.  This makes sense, because there is no linear ordering to <code>hotel_cluster</code>.  For example, having a higher cluster number isn't tied to having a higher <code>srch_destination_id</code>.</p>
+<p>Unfortunately, this means that techniques like linear regression and logistic regression won't work well on our data, because they rely on linear correlations between predictors and targets.</p>
+<h2 id="creatingbetterpredictionsforourkaggleentry">Creating better predictions for our Kaggle entry</h2>
+<p>This data for this competition is quite difficult to make predictions on using machine learning for a few reasons:</p>
+<ul>
+<li>There are millions of rows, which increases runtime and memory usage for algorithms.</li>
+<li>There are <code>100</code> different clusters, and according to the competition admins, the boundaries are fairly fuzzy, so it will likely be hard to make predictions.  As the number of clusters increases, classifiers generally decrease in accuracy.</li>
+<li>Nothing is linearly correlated with the target (<code>hotel_clusters</code>), meaning we can't use fast machine learning techniques like linear regression.</li>
+</ul>
+<p>For these reasons, machine learning probably won't work well on our data, but we can try an algorithm and find out.</p>
+<h3 id="generatingfeatures">Generating features</h3>
+<p>The first step in applying machine learning is to generate features.  We can generate features using both what's available in the training data, and what's available in <code>destinations</code>.  We haven't looked at <code>destinations</code> yet, so let's take a quick peek.</p>
+<h3 id="generatingfeaturesfromdestinations">Generating features from destinations</h3>
+<p>Destinations contains an id that corresponds to <code>srch_destination_id</code>, along with <code>149</code> columns of latent information about that destination.  Here's a sample:</p>
+<div class="dataframe">
+<table class="dataframe" border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>srch_destination_id</th>
+      <th>d1</th>
+      <th>d2</th>
+      <th>d3</th>
+      <th>d4</th>
+      <th>d5</th>
+      <th>d6</th>
+      <th>d7</th>
+      <th>d8</th>
+      <th>d9</th>
+      <th>...</th>
+      <th>d140</th>
+      <th>d141</th>
+      <th>d142</th>
+      <th>d143</th>
+      <th>d144</th>
+      <th>d145</th>
+      <th>d146</th>
+      <th>d147</th>
+      <th>d148</th>
+      <th>d149</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-1.897627</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-1.897627</td>
+      <td>...</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+      <td>-2.198657</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>-2.181690</td>
+      <td>-2.181690</td>
+      <td>-2.181690</td>
+      <td>-2.082564</td>
+      <td>-2.181690</td>
+      <td>-2.165028</td>
+      <td>-2.181690</td>
+      <td>-2.181690</td>
+      <td>-2.031597</td>
+      <td>...</td>
+      <td>-2.165028</td>
+      <td>-2.181690</td>
+      <td>-2.165028</td>
+      <td>-2.181690</td>
+      <td>-2.181690</td>
+      <td>-2.165028</td>
+      <td>-2.181690</td>
+      <td>-2.181690</td>
+      <td>-2.181690</td>
+      <td>-2.181690</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>-2.183490</td>
+      <td>-2.224164</td>
+      <td>-2.224164</td>
+      <td>-2.189562</td>
+      <td>-2.105819</td>
+      <td>-2.075407</td>
+      <td>-2.224164</td>
+      <td>-2.118483</td>
+      <td>-2.140393</td>
+      <td>...</td>
+      <td>-2.224164</td>
+      <td>-2.224164</td>
+      <td>-2.196379</td>
+      <td>-2.224164</td>
+      <td>-2.192009</td>
+      <td>-2.224164</td>
+      <td>-2.224164</td>
+      <td>-2.224164</td>
+      <td>-2.224164</td>
+      <td>-2.057548</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.115485</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>...</td>
+      <td>-2.161081</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+      <td>-2.177409</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>-2.189562</td>
+      <td>-2.187783</td>
+      <td>-2.194008</td>
+      <td>-2.171153</td>
+      <td>-2.152303</td>
+      <td>-2.056618</td>
+      <td>-2.194008</td>
+      <td>-2.194008</td>
+      <td>-2.145911</td>
+      <td>...</td>
+      <td>-2.187356</td>
+      <td>-2.194008</td>
+      <td>-2.191779</td>
+      <td>-2.194008</td>
+      <td>-2.194008</td>
+      <td>-2.185161</td>
+      <td>-2.194008</td>
+      <td>-2.194008</td>
+      <td>-2.194008</td>
+      <td>-2.188037</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>The competition doesn't tell us exactly what each latent feature is, but it's safe to assume that it's some combination of destination characteristics, like name, description, and more.  These latent features were converted to numbers, so they could be anonymized.</p>
+<p>We can use the destination information as features in a machine learning algorithm, but we'll need to compress the number of columns down first, to minimize runtime.  We can use <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">PCA</a> to do this.  PCA will reduce the number of columns in a matrix while trying to preserve the same amount of variance per row.  Ideally, PCA will compress all the information contained in all the columns into less, but in practice, some information is lost.</p>
+<p>In the code below, we:</p>
+<ul>
+<li>Initialize a PCA model using <a href="http://scikit-learn.org/">scikit-learn</a>.</li>
+<li>Specify that we want to only have <code>3</code> columns in our data.</li>
+<li>Transform the columns <code>d1-d149</code> into <code>3</code> columns.</li>
+</ul>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>decomposition <span class="token keyword">import</span> PCA
+
+pca <span class="token operator">=</span> PCA<span class="token punctuation">(</span>n_components<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span>
+dest_small <span class="token operator">=</span> pca<span class="token punctuation">.</span>fit_transform<span class="token punctuation">(</span>destinations<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">"d{0}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">149</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+dest_small <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>dest_small<span class="token punctuation">)</span>
+dest_small<span class="token punctuation">[</span><span class="token string">"srch_destination_id"</span><span class="token punctuation">]</span> <span class="token operator">=</span> destinations<span class="token punctuation">[</span><span class="token string">"srch_destination_id"</span><span class="token punctuation">]</span>
+</code></pre>
+<p>The above code compresses the <code>149</code> columns in <code>destinations</code> down to <code>3</code> columns, and creates a new DataFrame called <code>dest_small</code>.  We preserve most of the variance in <code>destinations</code> while doing this, so we don't lose a lot of information, but save a lot of runtime for a machine learning algorithm.</p>
+<h3 id="generatingfeatures">Generating features</h3>
+<p>Now that the preliminaries are done with, we can generate our features.  We'll do the following:</p>
+<ul>
+<li>Generate new date features based on <code>date_time</code>, <code>srch_ci</code>, and <code>srch_co</code>.</li>
+<li>Remove non-numeric columns like <code>date_time</code>.</li>
+<li>Add in features from <code>dest_small</code>.</li>
+<li>Replace any missing values with <code>-1</code>.</li>
+</ul>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">def</span> <span class="token function">calc_fast_features</span><span class="token punctuation">(</span>df<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    df<span class="token punctuation">[</span><span class="token string">"date_time"</span><span class="token punctuation">]</span> <span class="token operator">=</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">"date_time"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    df<span class="token punctuation">[</span><span class="token string">"srch_ci"</span><span class="token punctuation">]</span> <span class="token operator">=</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">"srch_ci"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'%Y-%m-%d'</span><span class="token punctuation">,</span> errors<span class="token operator">=</span><span class="token string">"coerce"</span><span class="token punctuation">)</span>
+    df<span class="token punctuation">[</span><span class="token string">"srch_co"</span><span class="token punctuation">]</span> <span class="token operator">=</span> pd<span class="token punctuation">.</span>to_datetime<span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">"srch_co"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'%Y-%m-%d'</span><span class="token punctuation">,</span> errors<span class="token operator">=</span><span class="token string">"coerce"</span><span class="token punctuation">)</span>
+    
+    props <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> prop <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">"month"</span><span class="token punctuation">,</span> <span class="token string">"day"</span><span class="token punctuation">,</span> <span class="token string">"hour"</span><span class="token punctuation">,</span> <span class="token string">"minute"</span><span class="token punctuation">,</span> <span class="token string">"dayofweek"</span><span class="token punctuation">,</span> <span class="token string">"quarter"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        props<span class="token punctuation">[</span>prop<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">getattr</span><span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">"date_time"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">,</span> prop<span class="token punctuation">)</span>
+    
+    carryover <span class="token operator">=</span> <span class="token punctuation">[</span>p <span class="token keyword">for</span> p <span class="token keyword">in</span> df<span class="token punctuation">.</span>columns <span class="token keyword">if</span> p <span class="token operator">not</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">"date_time"</span><span class="token punctuation">,</span> <span class="token string">"srch_ci"</span><span class="token punctuation">,</span> <span class="token string">"srch_co"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> prop <span class="token keyword">in</span> carryover<span class="token punctuation">:</span>
+        props<span class="token punctuation">[</span>prop<span class="token punctuation">]</span> <span class="token operator">=</span> df<span class="token punctuation">[</span>prop<span class="token punctuation">]</span>
+    
+    date_props <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"month"</span><span class="token punctuation">,</span> <span class="token string">"day"</span><span class="token punctuation">,</span> <span class="token string">"dayofweek"</span><span class="token punctuation">,</span> <span class="token string">"quarter"</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> prop <span class="token keyword">in</span> date_props<span class="token punctuation">:</span>
+        props<span class="token punctuation">[</span><span class="token string">"ci_{0}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>prop<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">getattr</span><span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">"srch_ci"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">,</span> prop<span class="token punctuation">)</span>
+        props<span class="token punctuation">[</span><span class="token string">"co_{0}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>prop<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">getattr</span><span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">"srch_co"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>dt<span class="token punctuation">,</span> prop<span class="token punctuation">)</span>
+    props<span class="token punctuation">[</span><span class="token string">"stay_span"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">"srch_co"</span><span class="token punctuation">]</span> <span class="token operator">-</span> df<span class="token punctuation">[</span><span class="token string">"srch_ci"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span><span class="token string">'timedelta64[h]'</span><span class="token punctuation">)</span>
+        
+    ret <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>props<span class="token punctuation">)</span>
+    
+    ret <span class="token operator">=</span> ret<span class="token punctuation">.</span>join<span class="token punctuation">(</span>dest_small<span class="token punctuation">,</span> on<span class="token operator">=</span><span class="token string">"srch_destination_id"</span><span class="token punctuation">,</span> how<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">,</span> rsuffix<span class="token operator">=</span><span class="token string">"dest"</span><span class="token punctuation">)</span>
+    ret <span class="token operator">=</span> ret<span class="token punctuation">.</span>drop<span class="token punctuation">(</span><span class="token string">"srch_destination_iddest"</span><span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> ret
+
+df <span class="token operator">=</span> calc_fast_features<span class="token punctuation">(</span>t1<span class="token punctuation">)</span>
+df<span class="token punctuation">.</span>fillna<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The above will calculate features such as length of stay, check in day, and check out month.  These features will help us train a machine learning algorithm later on.</p>
+<p>Replacing missing values with <code>-1</code> isn't the best choice, but it will work fine for now, and we can always optimize the behavior later on.</p>
+<h3 id="machinelearning">Machine learning</h3>
+<p>Now that we have features for our training data, we can try machine learning.  We'll use <code>3-fold</code> <a href="https://en.wikipedia.org/wiki/Cross-validation">cross validation</a> across the training set to generate a reliable error estimate.  Cross validation splits the training set up into <code>3</code> parts, then predicts <code>hotel_cluster</code> for each part using the other parts to train with.</p>
+<p>We'll generate predictions using the <a href="https://en.wikipedia.org/wiki/Random_forest">Random Forest</a> algorithm.  Random forests build trees, which can fit to nonlinear tendencies in data.  This will enable us to make predictions, even though none of our columns are linearly related.</p>
+<p>We'll first initialize the model and compute cross validation scores:</p>
+<pre class=" language-python"><code class=" language-python">predictors <span class="token operator">=</span> <span class="token punctuation">[</span>c <span class="token keyword">for</span> c <span class="token keyword">in</span> df<span class="token punctuation">.</span>columns <span class="token keyword">if</span> c <span class="token operator">not</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">"hotel_cluster"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token keyword">from</span> sklearn <span class="token keyword">import</span> cross_validation
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>ensemble <span class="token keyword">import</span> RandomForestClassifier
+
+clf <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span>n_estimators<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> min_weight_fraction_leaf<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+scores <span class="token operator">=</span> cross_validation<span class="token punctuation">.</span>cross_val_score<span class="token punctuation">(</span>clf<span class="token punctuation">,</span> df<span class="token punctuation">[</span>predictors<span class="token punctuation">]</span><span class="token punctuation">,</span> df<span class="token punctuation">[</span><span class="token string">'hotel_cluster'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> cv<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span>
+scores
+</code></pre>
+<pre><code>array([ 0.06203556,  0.06233452,  0.06392277])
+</code></pre>
+<p>The above code doesn't give us very good accuracy, and confirms our original suspicion that machine learning isn't a great approach to this problem.  However, classifiers tend to have lower accuracy when there is a high cluster count.  We can instead try training <code>100</code> binary classifiers.  Each classifier will just determine if a row is in it's cluster, or not.  This will entail training one classifier per label in <code>hotel_cluster</code>.</p>
+<h3 id="binaryclassifiers">Binary classifiers</h3>
+<p>We'll again train Random Forests, but each forest will predict only a single hotel cluster.  We'll use <code>2</code> fold cross validation for speed, and only train <code>10</code> trees per label.</p>
+<p>In the code below, we:</p>
+<ul>
+<li>Loop across each unique <code>hotel_cluster</code>.
+<ul>
+<li>Train a Random Forest classifier using 2-fold cross validation.</li>
+<li>Extract the probabilities from the classifier that the row is in the unique <code>hotel_cluster</code></li>
+</ul>
+</li>
+<li>Combine all the probabilities.</li>
+<li>For each row, find the <code>5</code> largest probabilities, and assign those <code>hotel_cluster</code> values as predictions.</li>
+<li>Compute accuracy using <code>mapk</code>.</li>
+</ul>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>ensemble <span class="token keyword">import</span> RandomForestClassifier
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>cross_validation <span class="token keyword">import</span> KFold
+<span class="token keyword">from</span> itertools <span class="token keyword">import</span> chain
+
+all_probs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+unique_clusters <span class="token operator">=</span> df<span class="token punctuation">[</span><span class="token string">"hotel_cluster"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>unique<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> cluster <span class="token keyword">in</span> unique_clusters<span class="token punctuation">:</span>
+    df<span class="token punctuation">[</span><span class="token string">"target"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+    df<span class="token punctuation">[</span><span class="token string">"target"</span><span class="token punctuation">]</span><span class="token punctuation">[</span>df<span class="token punctuation">[</span><span class="token string">"hotel_cluster"</span><span class="token punctuation">]</span> <span class="token operator">!=</span> cluster<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+    predictors <span class="token operator">=</span> <span class="token punctuation">[</span>col <span class="token keyword">for</span> col <span class="token keyword">in</span> df <span class="token keyword">if</span> col <span class="token operator">not</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'hotel_cluster'</span><span class="token punctuation">,</span> <span class="token string">"target"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+    probs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    cv <span class="token operator">=</span> KFold<span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token string">"target"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> n_folds<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+    clf <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span>n_estimators<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> min_weight_fraction_leaf<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> <span class="token punctuation">(</span>tr<span class="token punctuation">,</span> te<span class="token punctuation">)</span> <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>cv<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        clf<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>df<span class="token punctuation">[</span>predictors<span class="token punctuation">]</span><span class="token punctuation">.</span>iloc<span class="token punctuation">[</span>tr<span class="token punctuation">]</span><span class="token punctuation">,</span> df<span class="token punctuation">[</span><span class="token string">"target"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>iloc<span class="token punctuation">[</span>tr<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        preds <span class="token operator">=</span> clf<span class="token punctuation">.</span>predict_proba<span class="token punctuation">(</span>df<span class="token punctuation">[</span>predictors<span class="token punctuation">]</span><span class="token punctuation">.</span>iloc<span class="token punctuation">[</span>te<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        probs<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">[</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">for</span> p <span class="token keyword">in</span> preds<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    full_probs <span class="token operator">=</span> chain<span class="token punctuation">.</span>from_iterable<span class="token punctuation">(</span>probs<span class="token punctuation">)</span>
+    all_probs<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">(</span>full_probs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+prediction_frame <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>all_probs<span class="token punctuation">)</span><span class="token punctuation">.</span>T
+prediction_frame<span class="token punctuation">.</span>columns <span class="token operator">=</span> unique_clusters
+<span class="token keyword">def</span> <span class="token function">find_top_5</span><span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token builtin">list</span><span class="token punctuation">(</span>row<span class="token punctuation">.</span>nlargest<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>index<span class="token punctuation">)</span>
+
+preds <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> index<span class="token punctuation">,</span> row <span class="token keyword">in</span> prediction_frame<span class="token punctuation">.</span>iterrows<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    preds<span class="token punctuation">.</span>append<span class="token punctuation">(</span>find_top_5<span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+metrics<span class="token punctuation">.</span>mapk<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token keyword">for</span> l <span class="token keyword">in</span> t2<span class="token punctuation">.</span>iloc<span class="token punctuation">[</span><span class="token string">"hotel_cluster"</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> preds<span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+</code></pre>
+<pre><code>0.041083333333333326
+</code></pre>
+<p>Our accuracy here is worse than before, and people on the leaderboard have much better accuracy scores.  We'll need to abandon machine learning and move to the next technique in order to compete.  Machine learning can be a powerful technique, but it isn't always the right approach to every problem.</p>
+<h2 id="topclustersbasedonhotel_cluster">Top clusters based on hotel_cluster</h2>
+<p>There are a few <a href="https://www.kaggle.com/c/expedia-hotel-recommendations/kernels">Kaggle Kernels</a> for the competition that involve aggregating <code>hotel_cluster</code> based on <code>orig_destination_distance</code>, or <code>srch_destination_id</code>.  Aggregating on <code>orig_destination_distance</code> will exploit a data leak in the competition, and attempt to match the same user together.  Aggregating on <code>srch_destination_id</code> will find the most popular hotel clusters for each destination.  We'll then be able to predict that a user who searches for a destination is going to one of the most popular hotel clusters for that destination.  Think of this as a more granular version of the most common clusters technique we used earlier.</p>
+<p>We can first generate scores for each <code>hotel_cluster</code> in each <code>srch_destination_id</code>.  We'll weight bookings higher than clicks.  This is because the test data is all booking data, and this is what we want to predict.  We want to include click information, but downweight it to reflect this.  Step by step, we'll:</p>
+<ul>
+<li>Group <code>t1</code> by <code>srch_destination_id</code>, and <code>hotel_cluster</code>.</li>
+<li>Iterate through each group, and:
+<ul>
+<li>Assign 1 point to each hotel cluster where <code>is_booking</code> is True.</li>
+<li>Assign <code>.15</code> points to each hotel cluster where <code>is_booking</code> is False.</li>
+<li>Assign the score to the <code>srch_destination_id</code> / <code>hotel_cluster</code> combination in a dictionary.</li>
+</ul>
+</li>
+</ul>
+<p>Here's the code to accomplish the above steps:</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">def</span> <span class="token function">make_key</span><span class="token punctuation">(</span>items<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">"_"</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> items<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+match_cols <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"srch_destination_id"</span><span class="token punctuation">]</span>
+cluster_cols <span class="token operator">=</span> match_cols <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token string">'hotel_cluster'</span><span class="token punctuation">]</span>
+groups <span class="token operator">=</span> t1<span class="token punctuation">.</span>groupby<span class="token punctuation">(</span>cluster_cols<span class="token punctuation">)</span>
+top_clusters <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> name<span class="token punctuation">,</span> group <span class="token keyword">in</span> groups<span class="token punctuation">:</span>
+    clicks <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>group<span class="token punctuation">.</span>is_booking<span class="token punctuation">[</span>group<span class="token punctuation">.</span>is_booking <span class="token operator">==</span> <span class="token boolean">False</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    bookings <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>group<span class="token punctuation">.</span>is_booking<span class="token punctuation">[</span>group<span class="token punctuation">.</span>is_booking <span class="token operator">==</span> <span class="token boolean">True</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    
+    score <span class="token operator">=</span> bookings <span class="token operator">+</span> <span class="token punctuation">.</span><span class="token number">15</span> <span class="token operator">*</span> clicks
+    
+    clus_name <span class="token operator">=</span> make_key<span class="token punctuation">(</span>name<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token builtin">len</span><span class="token punctuation">(</span>match_cols<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> clus_name <span class="token operator">not</span> <span class="token keyword">in</span> top_clusters<span class="token punctuation">:</span>
+        top_clusters<span class="token punctuation">[</span>clus_name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    top_clusters<span class="token punctuation">[</span>clus_name<span class="token punctuation">]</span><span class="token punctuation">[</span>name<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> score
+</code></pre>
+<p>At the end, we'll have a dictionary where each key is an <code>srch_destination_id</code>.  Each value in the dictionary will be another dictionary, containing hotel clusters as keys with scores as values.  Here's how it looks:</p>
+<pre><code>{'39331': {20: 1.15, 30: 0.15, 81: 0.3},
+'511': {17: 0.15, 34: 0.15, 55: 0.15, 70: 0.15}}
+</code></pre>
+<p>We'll next want to transform this dictionary to find the top 5 hotel clusters for each <code>srch_destination_id</code>.  In order to do this, we'll:</p>
+<ul>
+<li>Loop through each key in <code>top_clusters</code>.</li>
+<li>Find the top <code>5</code> clusters for that key.</li>
+<li>Assign the top <code>5</code> clusters to a new dictionary, <code>cluster_dict</code>.</li>
+</ul>
+<p>Here's the code:</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">import</span> operator
+
+cluster_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> n <span class="token keyword">in</span> top_clusters<span class="token punctuation">:</span>
+    tc <span class="token operator">=</span> top_clusters<span class="token punctuation">[</span>n<span class="token punctuation">]</span>
+    top <span class="token operator">=</span> <span class="token punctuation">[</span>l<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token keyword">for</span> l <span class="token keyword">in</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span>tc<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token operator">=</span>operator<span class="token punctuation">.</span>itemgetter<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+    cluster_dict<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">=</span> top
+</code></pre>
+<h3 id="makingpredictionsbasedondestination">Making predictions based on destination</h3>
+<p>Once we know the top clusters for each <code>srch_destination_id</code>, we can quickly make predictions.  To make predictions, all we have to do is:</p>
+<ul>
+<li>Iterate through each row in <code>t2</code>.
+<ul>
+<li>Extract the <code>srch_destination_id</code> for the row.</li>
+<li>Find the top clusters for that destination id.</li>
+<li>Append the top clusters to <code>preds</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Here's the code:</p>
+<pre class=" language-python"><code class=" language-python">preds <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> index<span class="token punctuation">,</span> row <span class="token keyword">in</span> t2<span class="token punctuation">.</span>iterrows<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    key <span class="token operator">=</span> make_key<span class="token punctuation">(</span><span class="token punctuation">[</span>row<span class="token punctuation">[</span>m<span class="token punctuation">]</span> <span class="token keyword">for</span> m <span class="token keyword">in</span> match_cols<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> key <span class="token keyword">in</span> cluster_dict<span class="token punctuation">:</span>
+        preds<span class="token punctuation">.</span>append<span class="token punctuation">(</span>cluster_dict<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        preds<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>At the end of the loop, <code>preds</code> will be a list of lists containing our predictions.  It will look like this:</p>
+<pre><code>[
+  [2, 25, 28, 10, 64], 
+  [25, 78, 64, 90, 60],
+  ...
+]
+</code></pre>
+<h3 id="calculatingerror">Calculating error</h3>
+<p>Once we have our predictions, we can compute our accuracy using the <code>mapk</code> function from earlier:</p>
+<pre class=" language-python"><code class=" language-python">metrics<span class="token punctuation">.</span>mapk<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token keyword">for</span> l <span class="token keyword">in</span> t2<span class="token punctuation">[</span><span class="token string">"hotel_cluster"</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> preds<span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+</code></pre>
+<pre><code>0.22388136288998359
+</code></pre>
+<p>We're doing pretty well!  We boosted our accuracy 4x over the best machine learning approach, and we did it with a far faster and simpler approach.</p>
+<p>You may have noticed that this value is quite a bit lower than accuracies on the leaderboard.  Local testing results in a lower accuracy value than submitting, so this approach will actually do fairly well on the leaderboard.  Differences in leaderboard score and local score can come down to a few factors:</p>
+<ul>
+<li>Different data locally and in the hidden set that leaderboard scores are computed on.  For example, we're computing error in a sample of the training set, and the leaderboard score is computed on the testing set.</li>
+<li>Techniques that result in higher accuracy with more training data.  We're only using a small subset of data for training, and it may be more accurate when we use the full training set.</li>
+<li>Different randomization.  With certain algorithms, random numbers are involved, but we're not using any of these.</li>
+</ul>
+<h2 id="generatingbetterpredictionsforyourkagglesubmission">Generating better predictions for your Kaggle submission</h2>
+<p>The forums are very important in Kaggle, and can often help you find nuggets of information that will let you boost your score.  The Expedia competition is no exception.  <a href="https://www.kaggle.com/c/expedia-hotel-recommendations/forums/t/20345/data-leak">This post</a> details a data leak that allows you to match users in the training set from the testing set using a set of columns including <code>user_location_country</code>, and <code>user_location_region</code>.</p>
+<p>We'll use the information from the post to match users from the testing set back to the training set, which will boost our score.  Based on the forum thread, its okay to do this, and the competition won't be updated as a result of the leak.</p>
+<h3 id="findingmatchingusers">Finding matching users</h3>
+<p>The first step is to find users in the training set that match users in the testing set.</p>
+<p>In order to do this, we need to:</p>
+<ul>
+<li>Split the training data into groups based on the match columns.</li>
+<li>Loop through the testing data.</li>
+<li>Create an index based on the match columns.</li>
+<li>Get any matches between the testing data and the training data using the groups.</li>
+</ul>
+<p>Here's the code to accomplish this:</p>
+<pre class=" language-python"><code class=" language-python">match_cols <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'user_location_country'</span><span class="token punctuation">,</span> <span class="token string">'user_location_region'</span><span class="token punctuation">,</span> <span class="token string">'user_location_city'</span><span class="token punctuation">,</span> <span class="token string">'hotel_market'</span><span class="token punctuation">,</span> <span class="token string">'orig_destination_distance'</span><span class="token punctuation">]</span>
+
+groups <span class="token operator">=</span> t1<span class="token punctuation">.</span>groupby<span class="token punctuation">(</span>match_cols<span class="token punctuation">)</span>
+    
+<span class="token keyword">def</span> <span class="token function">generate_exact_matches</span><span class="token punctuation">(</span>row<span class="token punctuation">,</span> match_cols<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    index <span class="token operator">=</span> <span class="token builtin">tuple</span><span class="token punctuation">(</span><span class="token punctuation">[</span>row<span class="token punctuation">[</span>t<span class="token punctuation">]</span> <span class="token keyword">for</span> t <span class="token keyword">in</span> match_cols<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        group <span class="token operator">=</span> groups<span class="token punctuation">.</span>get_group<span class="token punctuation">(</span>index<span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Exception<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    clus <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">set</span><span class="token punctuation">(</span>group<span class="token punctuation">.</span>hotel_cluster<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> clus
+
+exact_matches <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>t2<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    exact_matches<span class="token punctuation">.</span>append<span class="token punctuation">(</span>generate_exact_matches<span class="token punctuation">(</span>t2<span class="token punctuation">.</span>iloc<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> match_cols<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>At the end of this loop, we'll have a list of lists that contain any exact matches between the training and the testing sets.  However, there aren't that many matches.  To accurately evaluate error, we'll have to combine these predictions with our earlier predictions.  Otherwise, we'll get a very low accuracy value, because most rows have empty lists for predictions.</p>
+<h3 id="combiningpredictions">Combining predictions</h3>
+<p>We can combine different lists of predictions to boost accuracy.  Doing so will also help us see how good our exact match strategy is.  To do this, we'll have to:</p>
+<ul>
+<li>Combine <code>exact_matches</code>, <code>preds</code>, and <code>most_common_clusters</code>.</li>
+<li>Only take the unique predictions, in sequential order, using the <code>f5</code> function from <a href="https://www.peterbe.com/plog/uniqifiers-benchmark">here</a>.</li>
+<li>Ensure we have a maximum of <code>5</code> predictions for each row in the testing set.</li>
+</ul>
+<p>Here's how we can do it:</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">def</span> <span class="token function">f5</span><span class="token punctuation">(</span>seq<span class="token punctuation">,</span> idfun<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span> 
+    <span class="token keyword">if</span> idfun <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">def</span> <span class="token function">idfun</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">return</span> x
+    seen <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> item <span class="token keyword">in</span> seq<span class="token punctuation">:</span>
+        marker <span class="token operator">=</span> idfun<span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> marker <span class="token keyword">in</span> seen<span class="token punctuation">:</span> <span class="token keyword">continue</span>
+        seen<span class="token punctuation">[</span>marker<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+        result<span class="token punctuation">.</span>append<span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> result
+    
+full_preds <span class="token operator">=</span> <span class="token punctuation">[</span>f5<span class="token punctuation">(</span>exact_matches<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">+</span> preds<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">+</span> most_common_clusters<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token keyword">for</span> p <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>preds<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+mapk<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token keyword">for</span> l <span class="token keyword">in</span> t2<span class="token punctuation">[</span><span class="token string">"hotel_cluster"</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> full_preds<span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+</code></pre>
+<pre><code>0.28400041050903119
+</code></pre>
+<p>This is looking quite good in terms of error -- we improved dramatically from earlier!  We could keep going and making more small improvements, but we're probably ready to submit now.</p>
+<h2 id="makingakagglesubmissionfile">Making a Kaggle submission file</h2>
+<p>Luckily, because of the way we wrote the code, all we have to do to submit is assign <code>train</code> to the variable <code>t1</code>, and <code>test</code> to the variable <code>t2</code>.  Then, we just have to re-run the code to make predictions.  Re-running the code over the <code>train</code> and <code>test</code> sets should take less than an hour.</p>
+<p>Once we have predictions, we just have to write them to a file:</p>
+<pre class=" language-python"><code class=" language-python">write_p <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">" "</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token keyword">for</span> l <span class="token keyword">in</span> p<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">for</span> p <span class="token keyword">in</span> full_preds<span class="token punctuation">]</span>
+write_frame <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"{0},{1}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>t2<span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> write_p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>full_preds<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+write_frame <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"id,hotel_clusters"</span><span class="token punctuation">]</span> <span class="token operator">+</span> write_frame
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"predictions.csv"</span><span class="token punctuation">,</span> <span class="token string">"w+"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    f<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>write_frame<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>We'll then have a submission file in the right format to submit.  As of this writing, making this submission will get you into the top <code>15</code>.</p>
+<h2 id="summary">Summary</h2>
+<p>We came a long way in this post!  We went from just looking at the data all the way to creating a submission and getting onto the leaderboard.  Along the way, some of the key steps we took were:</p>
+<ul>
+<li>Exploring the data and understanding the problem.</li>
+<li>Setting up a way to iterate quickly through different techniques.</li>
+<li>Creating a way to figure out accuracy locally.</li>
+<li>Reading the forums, scripts, and the descriptions of the contest very closely to better understand the structure of the data.</li>
+<li>Trying a variety of techniques and not being afraid to not use machine learning.</li>
+</ul>
+<p>These steps will serve you well in any Kaggle competition.</p>
+<h3 id="nextsteps">Next Steps</h3>
+<p>In order to iterate quickly and explore techniques, speed is key.  This is difficult with this competition, but there are a few strategies to try:</p>
+<ul>
+<li>Sampling down the data even more.</li>
+<li>Parallelizing operations across multiple cores.</li>
+<li>Using Spark or other tools where tasks can be run on parallel workers.</li>
+<li>Exploring various ways to write code and benchmarking to find the most efficient approach.</li>
+<li>Avoiding iterating over the full training and testing sets, and instead using groups.</li>
+</ul>
+<p>Writing fast, efficient code is a huge advantage in this competition.</p>
+<p>Once you have a stable foundation on which to run your code, there are a few avenues to explore in terms of techniques to boost accuracy:</p>
+<ul>
+<li>Finding similarity between users, then adjusting hotel cluster scores based on similarity.</li>
+<li>Using similarity between destinations to group multiple destinations together.</li>
+<li>Applying machine learning within subsets of the data.</li>
+<li>Combining different prediction strategies in a less naive way.</li>
+<li>Exploring the link between hotel clusters and regions more.</li>
+</ul>
+<p>I hope you have fun with this competition!  I'd love to hear any feedback you have.  If you want to learn more before diving into the competition, check out our courses on <a href="https://www.dataquest.io/">Dataquest</a> to learn about data manipulation, statistics, machine learning, how to work with Spark, and more.</p>
+</div>
+            </section>
+
+
+            <footer class="post-full-footer">
+                <div class="newsletter-block">
+                    <data data-token="4d32db293dfe16ddcd8c4583e3dcce22" class="mj-w-data" data-apikey="2N0E" data-w-id="68c" data-lang="en_US" data-base="https://app.mailjet.com" data-width="640" data-height="328" data-statics="statics"></data>
+                    <div class="mj-w-button mj-w-btn" data-token="4d32db293dfe16ddcd8c4583e3dcce22" style="font-family: Ubuntu, Helvetica; color: white; padding: 0px 25px; background-color: rgb(97, 209, 153); text-align: center; vertical-align: middle; display: inline-block; border-radius: 3px; margin-left: auto; margin-right: auto; cursor: pointer;">
+                        <div style="display: table; height: 45px;">
+                            <div style="display: table-cell; vertical-align: middle;">
+                                <div class="mj-w-button-content" style="font-family:Ubuntu, Helvetica; display: inline-block; text-align: center; font-size: 13px; vertical-align: middle;" onclick="analytics.track(
+                                        &#39;blog-conversion&#39;,
+                                          {
+                                            category: &#39;email-signup&#39;,
+                                            label: &#39;end-post&#39;,
+                                          });"><b>SUBSCRIBE TO OUR MAILING LIST!</b></div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/widget.modal.js.download"></script>
+                </div>
+                <div class="author-block">
+
+                    <section class="author-card">
+                        <section class="author-card-content">
+                            <h4 class="author-card-name"><a href="https://www.dataquest.io/blog/author/vik/">Vik Paruchuri</a></h4>
+                                <p>Read <a href="https://www.dataquest.io/blog/author/vik/">more posts</a> by this author.</p>
+                        </section>
+                    </section>
+                    <div class="post-full-footer-right">
+                        <a class="author-card-button" href="https://www.dataquest.io/blog/author/vik/">Read More</a>
+                    </div>
+                </div>
+
+
+            </footer>
+
+
+        </article>
+
+    </div>
+    <div id="ad-box-content" style="display: none;">
+        <h3>What is your passion?</h3>
+        <p>
+            To celebrate spring, we're focusing on data in nature, and want to make sure you notice the data in the things you love. To help, click below to get $100 off our annual premium subscription.
+        </p>
+        <p>
+            <a class="learning-cta" href="https://www.dataquest.io/payment?discount=may18_passion&amp;only_yearly=true" onclick="analytics.track(
+                        &#39;blog-conversion&#39;,
+                        {
+                          category: &#39;may18-promo&#39;,
+                          label: &#39;popup-bottom-right&#39;,
+                        });">Claim Your Discount Now</a>
+        </p>
+
+    </div>
+</main>
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+                <article class="read-next-card">
+                    <header class="read-next-card-header">
+                        <small class="read-next-card-header-sitetitle">— Dataquest —</small>
+                        <h3 class="read-next-card-header-title"><a href="https://www.dataquest.io/blog/tag/kaggle/">Kaggle</a></h3>
+                    </header>
+                    <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"></path></svg>
+</div>
+                    <div class="read-next-card-content">
+                        <ul>
+                            <li><a href="https://www.dataquest.io/blog/kaggle-fundamentals/">Kaggle Fundamentals: The Titanic Competition</a></li>
+                            <li><a href="https://www.dataquest.io/blog/kaggle-tips-tricks/">The tips and tricks I used to succeed on Kaggle</a></li>
+                            <li><a href="https://www.dataquest.io/blog/kaggle-getting-started/">Getting Started with Kaggle: House Prices Competition</a></li>
+                        </ul>
+                    </div>
+                    <footer class="read-next-card-footer">
+                        <a href="https://www.dataquest.io/blog/tag/kaggle/">See all 3 posts →</a>
+                    </footer>
+                </article>
+
+                <article class="post-card post tag-matplotlib tag-python tag-tutorials no-image" data-title="Matplotlib tutorial: Plotting tweets mentioning Trump, Clinton, and Sanders" data-date="2016-05-12">
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="https://www.dataquest.io/blog/matplotlib-tutorial/">
+            <header class="post-card-header">
+                    <span class="post-card-tags">Matplotlib</span>
+                <span class="post-card-date">May 12, 2016</span>
+                <div style="clear:both;"></div>
+                <h2 class="post-card-title">Matplotlib tutorial: Plotting tweets mentioning Trump, Clinton, and Sanders</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>This matplotlib tutorial shows you how to create plots using Python and data from tweets mentioning presidential candidates.</p>
+            </section>
+        </a>
+        <footer class="post-card-meta">
+            <span class="post-card-author"><a href="https://www.dataquest.io/blog/author/vik/">Vik Paruchuri</a></span>
+        </footer>
+    </div>
+</article>
+
+                <article class="post-card post tag-python tag-json tag-pandas tag-matplotlib tag-data-science no-image" data-title="Python and JSON: Working with large datasets using Pandas" data-date="2016-03-01">
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="https://www.dataquest.io/blog/python-json-tutorial/">
+            <header class="post-card-header">
+                    <span class="post-card-tags">Python</span>
+                <span class="post-card-date">Mar 01, 2016</span>
+                <div style="clear:both;"></div>
+                <h2 class="post-card-title">Python and JSON: Working with large datasets using Pandas</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Working with large JSON datasets can be a pain, particularly when they are too large to fit into memory.  In cases like this, a combination of command line tools and Python can make</p>
+            </section>
+        </a>
+        <footer class="post-card-meta">
+            <span class="post-card-author"><a href="https://www.dataquest.io/blog/author/vik/">Vik Paruchuri</a></span>
+        </footer>
+    </div>
+</article>
+
+        </div>
+    </div>
+</aside>
+
+<div class="floating-header floating-active">
+    <div class="floating-header-logo">
+        <a href="https://www.dataquest.io/blog">
+                <img src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/ms-icon-144x144.png" alt="Dataquest icon">
+            <span>Dataquest</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">—</span>
+    <div class="floating-header-title">How to get into the top 15 of a Kaggle competition using Python</div>
+    <div class="floating-header-signup">
+        <a class="author-card-button" href="https://www.dataquest.io/" onclick="analytics.track(
+                        &#39;blog-conversion&#39;,
+                        {
+                          category: &#39;homepage-link&#39;,
+                          label: &#39;floating-header&#39;,
+                        });">Learn Data Science Online</a>
+    </div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"></path>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=How%20to%20get%20into%20the%20top%2015%20of%20a%20Kaggle%20competition%20using%20Python&amp;url=https://www.dataquest.io/blog/kaggle-tutorial/" onclick="window.open(this.href, &#39;share-twitter&#39;, &#39;width=550,height=235&#39;);return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"></path></svg>
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://www.dataquest.io/blog/kaggle-tutorial/" onclick="window.open(this.href, &#39;share-facebook&#39;,&#39;width=580,height=296&#39;);return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"></path></svg>
+        </a>
+    </div>
+    <progress class="progress" value="1460.6666259765625" max="29892">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+
+
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://www.dataquest.io/blog">Dataquest</a> © 2018</section>
+                <nav class="site-footer-nav">
+                    <a href="https://www.dataquest.io/blog">Latest Posts</a>
+                    <a href="https://www.facebook.com/dataquestio/" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/dataquestio" target="_blank" rel="noopener">Twitter</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+
+    <script src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/jquery.min.js.download"></script>
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/jquery.ghosthunter.js.download"></script>
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/initghost.js.download"></script>
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/jquery.fitvids.js.download"></script>
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/fa-solid.min.js.download"></script>
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/fontawesome.min.js.download"></script>
+
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/prism.min.js.download"></script>
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/prism-python.min.js.download"></script>
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/prism-r.min.js.download"></script>
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/prism-sql.min.js.download"></script>
+    <script type="text/javascript" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/prism-bash.min.js.download"></script>
+    <script type="text/javascript" async="" src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/MathJax.js.download">
+    </script>
+    <script type="text/x-mathjax-config;executed=true">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            // Center justify equations in code and markdown cells. Elsewhere
+            // we use CSS to left justify single line equations in code cells.
+            displayAlign: 'center',
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}},
+                linebreaks: { automatic: true }
+            }
+        });
+    </script>
+
+    <script>
+      if(window.location.host === 'www.dataquest.io') {
+        var segment = 'AshBDDdcjA4D5pxKTMHzKN0dCzbjfTc3' // this is the blog prod segment key
+      } else {
+        var segment = 'Cwx1HZOBtWSKbPh9WcJZyyuo7WAYlEIb' // this is the blog test segment key
+      }
+      
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load(segment);
+      analytics.page()
+      }}();
+    </script>
+
+
+    <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+<script src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/boxzilla.js.download"></script>
+<script>
+    Boxzilla.init();
+    Boxzilla.create('ad-box', {
+        content: document.getElementById('ad-box-content').innerHTML,
+        trigger: {
+            method: 'percentage',
+            value: 50
+        },
+        'cookie': {
+            'dismissed': 6,        // hours that a box should stay hidden after being dismissed
+            'triggered': 1          // hours that a box should stay hidden after being triggered
+        },
+        position: "bottom-right"
+    });
+</script><div id="boxzilla-overlay" style="display: none;"></div><div class="boxzilla-container boxzilla-bottom-right-container"><div id="boxzilla-ad-box" class="boxzilla boxzilla-ad-box boxzilla-bottom-right" style="overflow-y: auto; max-height: none; display: none;"><div class="boxzilla-content">
+        <h3>What is your passion?</h3>
+        <p>
+            To celebrate spring, we're focusing on data in nature, and want to make sure you notice the data in the things you love. To help, click below to get $100 off our annual premium subscription.
+        </p>
+        <p>
+            <a class="learning-cta" href="https://www.dataquest.io/payment?discount=may18_passion&amp;only_yearly=true" onclick="analytics.track(
+                        &#39;blog-conversion&#39;,
+                        {
+                          category: &#39;may18-promo&#39;,
+                          label: &#39;popup-bottom-right&#39;,
+                        });">Claim Your Discount Now</a>
+        </p>
+
+    </div><span class="boxzilla-close-icon">×</span></div></div>
+<script src="./Using Python to place in the top 15 of the Kaggle Expedia competition_files/dq_post_box.js.download"></script>
+
+
+    
+
+
+
+</body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>

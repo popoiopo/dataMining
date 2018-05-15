@@ -1,0 +1,15 @@
+window.addEventListener('message', function (event) {
+  if (event.data.type === 'dq_request_setup') {
+    document.getElementsByName('dq_editor').forEach(function (element) {
+      element.contentWindow.postMessage({
+        type: 'dq_setup',
+        dom: element.innerHTML,
+      }, '*')
+    })
+  }
+  if (event.data.type === 'dq_kill_connection') {
+    document.getElementsByName('dq_editor').forEach(function (element) {
+      element.contentWindow.postMessage(event.data, '*')
+    })
+  }
+}, false)

@@ -1,0 +1,65 @@
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+if ($("#searchPageField").length ) {
+  $("#searchPageField").ghostHunter({
+    results: "#searchResults",
+    result_template: "<a id='gh-{{ref}}' class='gh-search-item' href='/blog{{link}}'>{{title}}</a>",
+    displaySearchInfo: false,
+    onComplete: function(results) {
+      if (results.length > 0) {
+        $('.search-results-wrapper').removeClass('empty');
+        $('.search-no-results').hide();
+      }
+      else {
+        $('.search-results-wrapper').removeClass('empty');
+        $('.search-no-results').show();
+      }
+    }
+  });
+  $(document).click(function () {
+    $('.search-results-wrapper').addClass('empty');
+
+});
+
+var search_query = getParameterByName('q');
+console.log(search_query);
+if (typeof search_query !== 'undefined' && search_query !== null) {
+  $('#searchPageField').prop('value', search_query);
+  $('.search-submit').trigger('click');
+}
+}
+else {
+  $("#searchField").ghostHunter({
+    results: "#dropdownResults",
+    result_template: "<a id='gh-{{ref}}' class='gh-search-item' href='/blog{{link}}'>{{title}}</a>",
+    displaySearchInfo: false,
+    onComplete: function(results) {
+      if (results.length > 0) {
+        $('.header-search-results-wrapper').removeClass('empty');
+        $('.search-no-results').hide();
+        $('.header-view-all').show();
+        $('.header-view-all').attr('href','/blog/search?q=' + $("#searchField").val()); 
+      }
+      else {
+        $('.header-search-results-wrapper').removeClass('empty');
+        $('.search-no-results').show();
+        $('.header-view-all').hide();
+      }
+    }
+  });
+
+  $(document).click(function () {
+    $('.header-search-results-wrapper').addClass('empty');
+
+});
+}
+
+
